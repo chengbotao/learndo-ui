@@ -1,0 +1,7 @@
+{
+    "packages/**/*.{vue,ts,js}": [
+        "vitest related --run",
+        "eslint --fix",
+        "prettier --write"
+    ]
+}
