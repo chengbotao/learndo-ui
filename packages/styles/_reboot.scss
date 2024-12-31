@@ -5,7 +5,7 @@
   *
   * Normalize is licensed MIT. https://github.com/necolas/normalize.css
   */
-
+@use "variables" as *;
 
 /* Document
    ========================================================================== */
@@ -149,7 +149,8 @@ a {
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  /* 2 */
+  text-decoration-style: dotted;
 }
 
 /**

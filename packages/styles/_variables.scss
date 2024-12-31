@@ -1,3 +1,4 @@
+@use 'sass:color';
 // 中性色
 $white: #ffffff !default;
 $gray-100: #f8f9fa !default;
@@ -72,6 +73,17 @@ $line-height-base: 1.5 !default;
 $line-height-lg: 2 !default;
 $line-height-sm: 1.25 !default;
 
+// Spacing
+$spacer: 1rem !default;
+$spacers: (
+        0: 0,
+        1: ($spacer * .25),
+        2: ($spacer * .5),
+        3: $spacer,
+        4: ($spacer * 1.5),
+        5: ($spacer * 3)
+) !default;
+
 // 标题大小
 $h1-font-size: $font-size-base * 2.5 !default;
 $h2-font-size: $font-size-base * 2 !default;
@@ -96,19 +108,8 @@ $headings-color: null !default;
 // Links
 $link-color: $primary !default;
 $link-decoration: none !default;
-$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-color: color.adjust($link-color, 15%) !default;
 $link-hover-decoration: underline !default;
-
-// Spacing
-$spacer: 1rem !default;
-$spacers: (
-        0: 0,
-        1: ($spacer * .25),
-        2: ($spacer * .5),
-        3: $spacer,
-        4: ($spacer * 1.5),
-        5: ($spacer * 3)
-) !default;
 
 // Borders
 $border-width: 1px !default;

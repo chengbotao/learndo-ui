@@ -1,5 +1,5 @@
-@import "variables";
-@import "reboot";
-@import "mixins";
-@import "functions";
-@import "animations";
+@use "reboot";
+@use "mixins";
+@use "functions";
+@use "animations";
+@use "../components/signaturePad/SignaturePad";
