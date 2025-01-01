@@ -4,11 +4,24 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "LearnDo UI",
   description: "",
+  rewrites: {
+    "packages/components/:pkg/(.*)": ":pkg/index.md",
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [],
 
-    sidebar: [],
+    sidebar: [
+      {
+        text: "Components",
+        items: [
+          {
+            text: "SignaturePad",
+            link: "/signaturePad",
+          },
+        ],
+      },
+    ],
 
     socialLinks: [],
   },
