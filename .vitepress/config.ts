@@ -19,6 +19,10 @@ export default defineConfig({
             text: "SignaturePad",
             link: "/signaturePad",
           },
+          {
+            text: "Button",
+            link: "/button",
+          },
         ],
       },
     ],
