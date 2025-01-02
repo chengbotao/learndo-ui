@@ -15,7 +15,8 @@ const resetSignaturePad = () => {
 </script>
 <div class="ld-signature-pad--base">
     <LdSignaturePad ref="ldSignaturePad"></LdSignaturePad>
-    <button @click="resetSignaturePad">重置</button><button @click="handleGetDataURL">确认</button>
+    <ld-button @click="resetSignaturePad">重置</ld-button>
+    <ld-button btn-type="primary" @click="handleGetDataURL">确认</ld-button>
 </div>
 
 <style lang="scss" module>
