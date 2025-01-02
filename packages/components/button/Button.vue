@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import classNames from "classnames";
 
 type ButtonSize = "large" | "small";
@@ -19,6 +19,7 @@ export interface ButtonEmits {
 defineOptions({
   name: "LdButton",
 });
+const button = ref<HTMLButtonElement | null>();
 const props = defineProps<ButtonProps>();
 const emits = defineEmits<ButtonEmits>();
 const classes = computed(() => {
@@ -38,7 +39,13 @@ const handleClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <button :class="classes" v-bind="$attrs" @click="handleClick">
+  <button
+    ref="button"
+    :class="classes"
+    :disabled="props.disabled"
+    v-bind="$attrs"
+    @click="handleClick"
+  >
     <slot></slot>
   </button>
 </template>
