@@ -23,6 +23,10 @@ export default defineConfig({
             text: "Button",
             link: "/button",
           },
+          {
+            text: "SliderVerify",
+            link: "/captcha",
+          },
         ],
       },
     ],
