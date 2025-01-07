@@ -6,6 +6,7 @@ export default defineConfig({
   description: "",
   rewrites: {
     "packages/components/:pkg/(.*)": ":pkg/index.md",
+    "packages/hooks/:pkg/(.*)": ":pkg/index.md",
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -26,6 +27,15 @@ export default defineConfig({
           {
             text: "SliderVerify",
             link: "/captcha",
+          },
+        ],
+      },
+      {
+        text: "Hooks",
+        items: [
+          {
+            text: "useEventListener",
+            link: "/useEventListener",
           },
         ],
       },
