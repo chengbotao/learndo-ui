@@ -127,7 +127,7 @@ useEventListener(document, ["mouseup", "mouseleave"], [[handleMouseup], [handleM
 // useEventListener(document, ["mouseup", "mouseleave"], [[handleMouseup], [handleMouseleave]], undefined, false);
 ```
 
-2. 监听器作为数组传奇, 则需要第四个参数为 true, 对于 listenerOptions(第三个参数) 不需要设置时要用 undefined 占位
+2. 监听器作为数组传递, 则需要第四个参数为 true, 对于 listenerOptions(第三个参数) 不需要设置时要用 undefined 占位
 
 ```ts
 const handleMouseup = (evt: Event) => {
