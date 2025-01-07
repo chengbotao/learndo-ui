@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, onBeforeMount, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import classNames from "classnames";
+import useEventListener from "../../hooks/useEventListener";
 
 export interface SignaturePadProps {
   className?: string;
@@ -82,21 +83,21 @@ const getSignatureDataURL = () => {
   return signaturePad.value?.toDataURL("image/png", 1.0);
 };
 
-const handleStart = (event: MouseEvent | TouchEvent) => {
+const handleStart = (event: Event) => {
   event.preventDefault();
-  isWriting.value = true;
   if (signaturePad.value === null) return;
   const rect = signaturePad.value.getBoundingClientRect();
   if (event instanceof TouchEvent) {
     beginX.value = event.touches[0].clientX - rect.left;
     beginY.value = event.touches[0].clientY - rect.top;
   } else {
-    beginX.value = event.clientX - rect.left;
-    beginY.value = event.clientY - rect.top;
+    beginX.value = (event as MouseEvent).clientX - rect.left;
+    beginY.value = (event as MouseEvent).clientY - rect.top;
   }
+  isWriting.value = true;
 };
 
-const handleMove = (event: MouseEvent | TouchEvent) => {
+const handleMove = (event: Event) => {
   event.preventDefault();
   if (isWriting.value) {
     if (signaturePad.value === null) return;
@@ -106,8 +107,8 @@ const handleMove = (event: MouseEvent | TouchEvent) => {
       stopX = event.touches[0].clientX - rect.left;
       stopY = event.touches[0].clientY - rect.top;
     } else {
-      stopX = event.clientX - rect.left;
-      stopY = event.clientY - rect.top;
+      stopX = (event as MouseEvent).clientX - rect.left;
+      stopY = (event as MouseEvent).clientY - rect.top;
     }
     writing(beginX.value, beginY.value, stopX, stopY, canvas2D.value);
     beginX.value = stopX;
@@ -119,30 +120,28 @@ const handleEnd = () => {
   isWriting.value = false;
 };
 
+useEventListener(
+  signaturePad,
+  ["mousedown", "mousemove"],
+  [[handleStart], [handleMove]],
+);
+useEventListener(
+  signaturePad,
+  ["touchstart", "touchmove"],
+  [[handleStart], [handleMove]],
+  {
+    passive: true,
+  },
+);
+useEventListener(
+  signaturePad,
+  ["mouseup", "mouseleave", "touchend"],
+  handleEnd,
+);
 onMounted(() => {
   drawSignaturePad();
-  signaturePad.value?.addEventListener("mousedown", handleStart);
-  signaturePad.value?.addEventListener("mousemove", handleMove);
-  signaturePad.value?.addEventListener("mouseup", handleEnd);
-  signaturePad.value?.addEventListener("mouseleave", handleEnd);
-  signaturePad.value?.addEventListener("touchstart", handleStart, {
-    passive: true,
-  });
-  signaturePad.value?.addEventListener("touchmove", handleMove, {
-    passive: true,
-  });
-  signaturePad.value?.addEventListener("touchend", handleEnd);
 });
 
-onBeforeMount(() => {
-  signaturePad.value?.removeEventListener("mousedown", handleStart);
-  signaturePad.value?.removeEventListener("mousemove", handleMove);
-  signaturePad.value?.removeEventListener("mouseup", handleEnd);
-  signaturePad.value?.removeEventListener("mouseleave", handleEnd);
-  signaturePad.value?.removeEventListener("touchstart", handleStart);
-  signaturePad.value?.removeEventListener("touchmove", handleMove);
-  signaturePad.value?.removeEventListener("touchend", handleEnd);
-});
 defineExpose<SignaturePadExpose>({
   resetSignaturePad,
   getSignatureDataURL,
