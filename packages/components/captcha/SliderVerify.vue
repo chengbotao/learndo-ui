@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, onBeforeMount, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import classNames from "classnames";
+import useEventListener from "../../hooks/useEventListener";
 
 interface SliderState {
   width?: number;
@@ -67,29 +68,29 @@ const maskStyle = computed(() => {
 const emits = defineEmits<SliderVerifyEmits>();
 
 // 鼠标按下
-const handleStart = (event: MouseEvent | TouchEvent) => {
+const handleStart = (event: Event) => {
   event.preventDefault();
   if (!props.draggable) return;
   if (event instanceof TouchEvent) {
     thumbBeginX.value = event.touches[0].clientX;
     thumbBeginY.value = event.touches[0].clientY;
   } else {
-    thumbBeginX.value = event.clientX;
-    thumbBeginY.value = event.clientY;
+    thumbBeginX.value = (event as MouseEvent).clientX;
+    thumbBeginY.value = (event as MouseEvent).clientY;
   }
   isDrag.value = true;
   timestamp.value = +Date.now();
 };
 // 鼠标移动
-const handleMove = (event: MouseEvent | TouchEvent) => {
+const handleMove = (event: Event) => {
   if (!isDrag.value) return;
   let moveY;
   if (event instanceof TouchEvent) {
     thumbMoveX.value = event.touches[0].clientX - thumbBeginX.value;
     moveY = event.touches[0].clientY - thumbBeginY.value;
   } else {
-    thumbMoveX.value = event.clientX - thumbBeginX.value;
-    moveY = event.clientY - thumbBeginY.value;
+    thumbMoveX.value = (event as MouseEvent).clientX - thumbBeginX.value;
+    moveY = (event as MouseEvent).clientY - thumbBeginY.value;
   }
   // 限制滑动范围
   const rect = slider.value!.getBoundingClientRect();
@@ -109,7 +110,7 @@ const handleMove = (event: MouseEvent | TouchEvent) => {
   });
 };
 // 鼠标抬起
-const handleEnd = (event: MouseEvent | TouchEvent) => {
+const handleEnd = (event: Event) => {
   if (!isDrag.value) return;
   isDrag.value = false;
   let moveY;
@@ -117,8 +118,8 @@ const handleEnd = (event: MouseEvent | TouchEvent) => {
     thumbMoveX.value = event.touches[0].clientX - thumbBeginX.value;
     moveY = event.touches[0].clientY - thumbBeginY.value;
   } else {
-    thumbMoveX.value = event.clientX - thumbBeginX.value;
-    moveY = event.clientY - thumbBeginY.value;
+    thumbMoveX.value = (event as MouseEvent).clientX - thumbBeginX.value;
+    moveY = (event as MouseEvent).clientY - thumbBeginY.value;
   }
   // 限制滑动范围
   const rect = slider.value!.getBoundingClientRect();
@@ -165,30 +166,22 @@ const verifyHuman = (tail: number[]) => {
   return average !== stddev;
 };
 
+useEventListener(thumb, "mousedown", handleStart);
+useEventListener(document, "mousemove", handleMove);
+useEventListener(thumb, ["mouseup", "mouseleave"], handleEnd);
+
+useEventListener(thumb, "touchstart", handleStart, {
+  passive: true,
+});
+useEventListener(document, "touchmove", handleMove, {
+  passive: true,
+});
+useEventListener(thumb, "touchend", handleEnd);
+
 onMounted(() => {
   sliderWidth.value = slider.value!.offsetWidth;
-  thumb.value?.addEventListener("mousedown", handleStart);
-  document.addEventListener("mousemove", handleMove);
-  thumb.value?.addEventListener("mouseup", handleEnd);
-  thumb.value?.addEventListener("mouseleave", handleEnd);
-  thumb.value?.addEventListener("touchstart", handleStart, {
-    passive: true,
-  });
-  document.addEventListener("touchmove", handleMove, {
-    passive: true,
-  });
-  thumb.value?.addEventListener("touchend", handleEnd);
 });
 
-onBeforeMount(() => {
-  thumb.value?.removeEventListener("mousedown", handleStart);
-  document.removeEventListener("mousemove", handleMove);
-  thumb.value?.removeEventListener("mouseup", handleEnd);
-  thumb.value?.removeEventListener("mouseleave", handleEnd);
-  thumb.value?.removeEventListener("touchstart", handleStart);
-  document.removeEventListener("touchmove", handleMove);
-  thumb.value?.removeEventListener("touchend", handleEnd);
-});
 defineExpose<SliderVerifyExpose>({
   reset,
 });
