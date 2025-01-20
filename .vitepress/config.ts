@@ -37,6 +37,10 @@ export default defineConfig({
             text: "useEventListener",
             link: "/useEventListener",
           },
+          {
+            text: "useCountdown",
+            link: "/useCountdown",
+          },
         ],
       },
     ],
