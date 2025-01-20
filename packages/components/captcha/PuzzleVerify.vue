@@ -48,7 +48,13 @@ const loadImage = (src: string) => {
 };
 
 const drawImage = () => {
-  if (!puzzleCtx.value || !blockCtx.value) return;
+  if (
+    !puzzleCtx.value ||
+    !blockCtx.value ||
+    !props.puzzleImg ||
+    !props.blockImg
+  )
+    return;
   Promise.all([loadImage(props.puzzleImg), loadImage(props.blockImg)]).then(
     (res) => {
       const [puzzleImg, blockImg] = res;
@@ -59,14 +65,7 @@ const drawImage = () => {
       // 缩放比
       scaleX.value = puzzleCanvas.value!.width / puzzleImg.width;
       scaleY.value = puzzleCanvas.value!.height / puzzleImg.height;
-      console.log(
-        blockImg.width,
-        blockImg.height,
-        puzzleCanvas.value!.height,
-        scaleX.value,
-        scaleY.value,
-        aspectRatio,
-      );
+
       blockCanvas.value!.width = blockImg.width * scaleX.value;
       blockCanvas.value!.height = puzzleCanvas.value!.height;
 
