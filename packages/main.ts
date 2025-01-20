@@ -1,11 +1,15 @@
 import SignaturePad from "./components/signaturePad";
 import Button from "./components/button";
-import SliderVerify from "./components/captcha";
+import Captcha from "./components/captcha";
 import type { App, DefineComponent } from "vue";
 
 export { default as useEventListener } from "./hooks/useEventListener";
 
-const components: DefineComponent[] = [SignaturePad, Button, SliderVerify];
+const components: DefineComponent[] = [
+  SignaturePad,
+  Button,
+  ...(Captcha as DefineComponent[]),
+];
 
 const install = (app: App) => {
   components.forEach((component) => {
@@ -13,6 +17,6 @@ const install = (app: App) => {
   });
 };
 
-export { SignaturePad, install };
+export { SignaturePad, Button, Captcha, install };
 
 export default install;

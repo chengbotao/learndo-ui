@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import classNames from "classnames";
 import useEventListener from "../../hooks/useEventListener";
 
-interface SliderState {
+export interface SliderState {
   width?: number;
   moveX?: number;
   moveY?: number;
@@ -115,8 +115,8 @@ const handleEnd = (event: Event) => {
   isDrag.value = false;
   let moveY;
   if (event instanceof TouchEvent) {
-    thumbMoveX.value = event.touches[0].clientX - thumbBeginX.value;
-    moveY = event.touches[0].clientY - thumbBeginY.value;
+    thumbMoveX.value = event.changedTouches[0].clientX - thumbBeginX.value;
+    moveY = event.changedTouches[0].clientY - thumbBeginY.value;
   } else {
     thumbMoveX.value = (event as MouseEvent).clientX - thumbBeginX.value;
     moveY = (event as MouseEvent).clientY - thumbBeginY.value;
