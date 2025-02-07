@@ -25,8 +25,12 @@ export default defineConfig({
             link: "/button",
           },
           {
-            text: "SliderVerify",
+            text: "Captcha",
             link: "/captcha",
+          },
+          {
+            text: "ContextMenu",
+            link: "/contextMenu",
           },
         ],
       },

@@ -1,7 +1,7 @@
 import type { ComponentPublicInstance, MaybeRef, MaybeRefOrGetter } from "vue";
 import { getCurrentScope, onScopeDispose, toValue, watch } from "vue";
 
-type EventListenerTarget = MaybeRefOrGetter<
+export type EventListenerTarget = MaybeRefOrGetter<
   EventTarget | HTMLElement | Window | Document | null | undefined
 >;
 type ArrayAble<T> = T[] | T;
