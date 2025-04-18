@@ -21,7 +21,7 @@
     "prepare": "husky",
     "commit": "git-cz",
     "preinstall": "npx only-allow pnpm",
-    "prepublish": "pnpm build"
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [
     "Vue3",
