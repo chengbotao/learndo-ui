@@ -52,6 +52,11 @@ export default defineConfig({
     socialLinks: [],
   },
   vite: {
+    /**
+     * TODO
+     * 因为sass依赖在项目和vitepress中有兼容问题,
+     * 故不继承项目的vite配置
+     * */
     configFile: false,
   },
 });
