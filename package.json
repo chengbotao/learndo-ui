@@ -1,8 +1,17 @@
 {
   "name": "learndo-ui",
-  "private": true,
   "version": "1.0.0",
+  "description": "Vue3 components library",
   "type": "module",
+  "main": "dist/learndo-ui.umd.cjs",
+  "module": "dist/learndo-ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/learndo-ui.js",
+      "require": "./dist/learndo-ui.umd.cjs"
+    }
+  },
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "vue-tsc -b && vite build",
     "docs:dev": "vitepress dev",
@@ -11,10 +20,31 @@
     "test": "vitest",
     "prepare": "husky",
     "commit": "git-cz",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "prepublish": "pnpm build"
   },
-  "dependencies": {
-    "vue": "^3.5.13"
+  "keywords": [
+    "Vue3",
+    "Components",
+    "UI"
+  ],
+  "license": "MIT",
+  "author": "chengbotao <chengbotao5221@163.com>",
+  "contributors": [
+    {
+      "name": "chengbotao",
+      "email": "chengbotao5221@163.com",
+      "url": "https://chengbotao.github.io/chengbotao/"
+    }
+  ],
+  "homepage": "https://chengbotao.github.io/learndo-ui/",
+  "repository": "https://github.com/chengbotao/learndo-ui/tree/develop",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "peerDependencies": {
+    "vue": ">=3.5.13"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
@@ -39,9 +69,10 @@
     "sass-embedded": "^1.83.0",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.5",
+    "vite": "6.2.6",
     "vitepress": "^1.5.0",
-    "vitest": "^2.1.8",
+    "vitest": "3.0.5",
+    "vue": "^3.5.13",
     "vue-tsc": "^2.1.10"
   },
   "config": {
