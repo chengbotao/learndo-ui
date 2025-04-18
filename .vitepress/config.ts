@@ -2,8 +2,27 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: process.env.NODE_ENV === "production" ? "/learndo-ui/" : "/",
   title: "LearnDo UI",
-  description: "",
+  description: "Vue3 components library",
+  head: [
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:title", content: "Vue3 UI Library" }],
+    [
+      "meta",
+      {
+        property: "og:description",
+        content: "通过开发组件库学习 Vue3、 Typescript 和工程化",
+      },
+    ],
+    [
+      "meta",
+      {
+        property: "og:url",
+        content: "https://chengbotao.github.io/learndo-ui",
+      },
+    ],
+  ],
   rewrites: {
     "packages/components/:pkg/(.*)": ":pkg/index.md",
     "packages/hooks/:pkg/(.*)": ":pkg/index.md",
@@ -49,7 +68,7 @@ export default defineConfig({
       },
     ],
 
-    socialLinks: [],
+    socialLinks: [{ icon: "github", link: "https://github.com/chengbotao" }],
   },
   vite: {
     /**
