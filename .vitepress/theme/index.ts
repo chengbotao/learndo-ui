@@ -2,6 +2,7 @@
 import { h } from "vue";
 import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
+import DemoContainer from "./DemoContainer.vue";
 import "./style.css";
 import "../../packages/styles/index.scss";
 
@@ -18,10 +19,11 @@ export default {
      * 在.vitepress添加tsconfigjson import.meta不报红单上面样式文件引入会报红,
      * 又不想单独声明声明declare module
      * */
-    // @ts-ignore
+    // @ts-expect-error
     if (!import.meta.env.SSR) {
       const LearnDoUI = await import("../../packages/main");
       app.use(LearnDoUI.default);
+      app.component("DemoContainer", DemoContainer);
     }
     if (router) {
       // TODO

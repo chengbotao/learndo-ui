@@ -1,0 +1,99 @@
+import type MarkdownIt from "markdown-it";
+import fs from "fs";
+import path from "path";
+
+interface DemoContainerOptions {
+  docRoot: string;
+  containerTag?: string; // 自定义容器标签名，默认为 "DemoContainer"
+  extensions?: string[]; // 支持的文件扩展名列表，默认为 [".vue"]
+}
+
+interface DemoOptions {
+  validate?: (params: string) => boolean;
+  render?: MarkdownIt["renderer"]["rules"]["container"];
+}
+
+export default (md: MarkdownIt, options: DemoContainerOptions): DemoOptions => {
+  const {
+    docRoot,
+    containerTag = "DemoContainer",
+    extensions = [".vue"],
+  } = options;
+
+  // 校验路径是否有效
+  if (!fs.existsSync(docRoot)) {
+    throw new Error(`Document root path "${docRoot}" does not exist.`);
+  }
+
+  // 校验容器标签名是否合法
+  if (containerTag.match(/[^a-zA-Z0-9\-]/)) {
+    throw new Error(`Invalid container tag name: ${containerTag}`);
+  }
+
+  // 校验支持的文件扩展名列表
+  if (!Array.isArray(extensions) || extensions.length === 0) {
+    throw new Error("Invalid or empty supportedExtensions array.");
+  }
+
+  return {
+    validate(params) {
+      return !!params.trim().match(/^demo\s*(.*)$/);
+    },
+    render(tokens, idx) {
+      if (tokens[idx].nesting === 1 /* means the tag is opening */) {
+        const sourceFile = tokens[idx].info
+          .trim()
+          .replace(/^demo\s*/, "")
+          .trim();
+        const descriptionToken = tokens[idx + 2];
+
+        // 如果没有指定文件名，直接报错
+        if (!sourceFile) {
+          throw new Error("No source file specified for demo container.");
+        }
+
+        // 构建完整的文件路径
+        let filePath = "";
+        let fileExtension = "";
+        for (const ext of extensions) {
+          const tempPath = path.resolve(docRoot, `${sourceFile}${ext}`);
+          if (fs.existsSync(tempPath)) {
+            filePath = tempPath;
+            fileExtension = ext;
+            break;
+          }
+        }
+
+        if (!filePath) {
+          throw new Error(
+            `No supported file found for: ${sourceFile}. Supported extensions: ${extensions.join(", ")}`,
+          );
+        }
+
+        let rawSource = "";
+        let source = "";
+
+        try {
+          rawSource = fs.readFileSync(filePath, "utf-8");
+          source = encodeURIComponent(
+            md.render(
+              `\`\`\`${fileExtension.substring(1)}\n${rawSource}\`\`\``,
+            ),
+          );
+        } catch (error) {
+          throw new Error(
+            `Failed to read source file: ${filePath}. Error: ${error}`,
+          );
+        }
+
+        const description = encodeURIComponent(
+          md.render(descriptionToken?.content || ""),
+        );
+
+        return `<${containerTag} source="${source}" path="${sourceFile}" rawSource="${encodeURIComponent(rawSource)}" description="${description}" extension="${fileExtension}">`;
+      } else {
+        return `</${containerTag}>`;
+      }
+    },
+  };
+};
