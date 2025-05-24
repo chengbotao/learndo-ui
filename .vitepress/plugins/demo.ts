@@ -1,4 +1,5 @@
 import type MarkdownIt from "markdown-it";
+import mdContainer from "markdown-it-container";
 import fs from "fs";
 import path from "path";
 
@@ -8,12 +9,10 @@ interface DemoContainerOptions {
   extensions?: string[]; // 支持的文件扩展名列表，默认为 [".vue"]
 }
 
-interface DemoOptions {
-  validate?: (params: string) => boolean;
-  render?: MarkdownIt["renderer"]["rules"]["container"];
-}
-
-export default (md: MarkdownIt, options: DemoContainerOptions): DemoOptions => {
+export const mdContainerDemo = (
+  md: MarkdownIt,
+  options: DemoContainerOptions,
+) => {
   const {
     docRoot,
     containerTag = "DemoContainer",
@@ -26,7 +25,7 @@ export default (md: MarkdownIt, options: DemoContainerOptions): DemoOptions => {
   }
 
   // 校验容器标签名是否合法
-  if (containerTag.match(/[^a-zA-Z0-9\-]/)) {
+  if (containerTag.match(/[^\-a-zA-Z0-9]/)) {
     throw new Error(`Invalid container tag name: ${containerTag}`);
   }
 
@@ -35,7 +34,7 @@ export default (md: MarkdownIt, options: DemoContainerOptions): DemoOptions => {
     throw new Error("Invalid or empty supportedExtensions array.");
   }
 
-  return {
+  md.use(mdContainer, "demo", {
     validate(params) {
       return !!params.trim().match(/^demo\s*(.*)$/);
     },
@@ -95,5 +94,5 @@ export default (md: MarkdownIt, options: DemoContainerOptions): DemoOptions => {
         return `</${containerTag}>`;
       }
     },
-  };
+  });
 };

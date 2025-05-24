@@ -1,6 +1,5 @@
 import { defineConfig } from "vitepress";
-import mdContainer from "markdown-it-container";
-import mdContainerDemo from "../scripts/markdown-it-container-demo/demo";
+import { mdContainerDemo } from "./plugins/demo";
 import path from "path";
 
 const SITE_BASE = process.env.NODE_ENV === "production" ? "/learndo-ui/" : "/";
@@ -127,13 +126,9 @@ export default defineConfig({
   },
   markdown: {
     config: (md) => {
-      md.use(
-        mdContainer,
-        "demo",
-        mdContainerDemo(md, {
-          docRoot: path.resolve(__dirname, "../packages/components"),
-        }),
-      );
+      md.use(mdContainerDemo, {
+        docRoot: path.resolve(__dirname, "../packages/components"),
+      });
     },
   },
 });

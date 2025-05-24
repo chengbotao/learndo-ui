@@ -1,8 +1,7 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from "vue";
+import { defineAsyncComponent, h } from "vue";
 import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
-import DemoContainer from "./DemoContainer.vue";
 import "./style.css";
 import "../../packages/styles/index.scss";
 
@@ -14,16 +13,26 @@ export default {
     });
   },
   async enhanceApp({ app, router, siteData }) {
-    /** TODO
-     * 项目viteconfig 跟 vitepress的viteconfig兼容问题如何处理?
-     * 在.vitepress添加tsconfigjson import.meta不报红单上面样式文件引入会报红,
-     * 又不想单独声明声明declare module
-     * */
-    // @ts-expect-error
     if (!import.meta.env.SSR) {
+      // 注册 learndo-ui
       const LearnDoUI = await import("../../packages/main");
       app.use(LearnDoUI.default);
-      app.component("DemoContainer", DemoContainer);
+      // 注册 DemoContainer
+      app.component(
+        "DemoContainer",
+        defineAsyncComponent(() => import("./DemoContainer.vue")),
+      );
+      // 获取所有 demos 组件
+      const modules = import.meta.glob("/packages/components/**/demos/*.vue");
+      const demoModules: Record<string, () => Promise<unknown>> = {};
+      for (const path in modules) {
+        const demoPath = path.replace(
+          /\/packages\/components\/(.*)(\/demos\/)(.*)\.vue/,
+          "$1$2$3",
+        );
+        demoModules[demoPath] = modules[path];
+      }
+      app.provide("demoModules", demoModules);
     }
     if (router) {
       // TODO
