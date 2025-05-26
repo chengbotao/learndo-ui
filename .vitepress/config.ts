@@ -52,6 +52,40 @@ export default defineConfig({
       },
     ],
     ["link", { rel: "manifest", href: `${SITE_BASE}favicon/site.webmanifest` }],
+
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: `${SITE_BASE}fontawesome/css/fontawesome.css`,
+      },
+    ],
+    [
+      "link",
+      { rel: "stylesheet", href: `${SITE_BASE}fontawesome/css/brands.css` },
+    ],
+    [
+      "link",
+      { rel: "stylesheet", href: `${SITE_BASE}fontawesome/css/solid.css` },
+    ],
+    [
+      "link",
+      { rel: "stylesheet", href: `${SITE_BASE}fontawesome/css/sharp-thin.css` },
+    ],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: `${SITE_BASE}fontawesome/css/duotone-thin.css`,
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: `${SITE_BASE}fontawesome/css/sharp-duotone-thin.css`,
+      },
+    ],
   ],
   rewrites: {
     "packages/components/:pkg/(.*)": ":pkg/index.md",
