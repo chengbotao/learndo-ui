@@ -1,6 +1,6 @@
 @use 'sass:color';
 // config
-@use "../../styles/variables" as *;
+@use "../../../styles/variables" as *;
 
 // button
 $btn-font-weight: $font-weight-normal !default;
@@ -138,6 +138,18 @@ border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
 
 .ld-button-danger {
   @include button-style($danger, $danger, $white);
+}
+
+.ld-button-success {
+  @include button-style($success, $success, $white);
+}
+
+.ld-button-info {
+  @include button-style($info, $info, $white);
+}
+
+.ld-button-warning {
+  @include button-style($warning, $warning, $white);
 }
 
 

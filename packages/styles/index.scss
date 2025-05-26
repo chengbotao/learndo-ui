@@ -3,7 +3,7 @@
 @use "functions";
 @use "animations";
 @use "../components/signaturePad/SignaturePad";
-@use "../components/button/Button";
+@use "../components/button/style/Button";
 @use "../components/captcha/SliderVerify";
 @use "../components/captcha/PuzzleVerify";
 @use "../components/contextMenu/ContextMenu";

@@ -44,7 +44,6 @@ export const mdContainerDemo = (
           .trim()
           .replace(/^demo\s*/, "")
           .trim();
-        const descriptionToken = tokens[idx + 2];
 
         // 如果没有指定文件名，直接报错
         if (!sourceFile) {
@@ -84,12 +83,16 @@ export const mdContainerDemo = (
             `Failed to read source file: ${filePath}. Error: ${error}`,
           );
         }
+        let description = "";
+        let tokenIdx = idx + 1;
+        while (tokens[tokenIdx]?.type !== "container_demo_close") {
+          if (tokens[tokenIdx].content) {
+            description += md.render(tokens[tokenIdx].content || "");
+          }
+          tokenIdx++;
+        }
 
-        const description = encodeURIComponent(
-          md.render(descriptionToken?.content || ""),
-        );
-
-        return `<${containerTag} source="${source}" path="${sourceFile}" rawSource="${encodeURIComponent(rawSource)}" description="${description}" extension="${fileExtension}">`;
+        return `<${containerTag} source="${source}" path="${sourceFile}" rawSource="${encodeURIComponent(rawSource)}" description="${encodeURIComponent(description)}" extension="${fileExtension}">`;
       } else {
         return `</${containerTag}>`;
       }

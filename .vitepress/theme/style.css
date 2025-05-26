@@ -136,3 +136,10 @@
 .DocSearch {
     --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+/**
+ * Custom Style
+ * -------------------------------------------------------------------------- */
+.ld-row {
+    margin-bottom: 1rem;
+}

@@ -1,38 +1,27 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import classNames from "classnames";
+import type { ButtonEmits, ButtonProps } from "./button.ts";
 
-type ButtonSize = "large" | "small";
-type ButtonType = "primary" | "default" | "danger";
-
-export interface ButtonProps {
-  disabled?: boolean;
-  className?: string;
-  size?: ButtonSize;
-  btnType?: ButtonType;
-}
-
-export interface ButtonEmits {
-  (event: "click", payload: MouseEvent): void;
-}
-
+// defineOptions
 defineOptions({
   name: "LdButton",
 });
+// data
 const button = ref<HTMLButtonElement | null>();
+// props
 const props = defineProps<ButtonProps>();
+// emits
 const emits = defineEmits<ButtonEmits>();
+// computed
 const classes = computed(() => {
-  return classNames(
-    "ld-button",
-    {
-      disabled: props.disabled,
-      [`ld-button-${props.size}`]: props.size,
-      [`ld-button-${props.btnType}`]: props.btnType,
-    },
-    props.className,
-  );
+  return classNames("ld-button", {
+    disabled: props.disabled,
+    [`ld-button-${props.size}`]: props.size,
+    [`ld-button-${props.typeFace}`]: props.typeFace,
+  });
 });
+// methods
 const handleClick = (event: MouseEvent) => {
   emits("click", event);
 };
@@ -43,6 +32,7 @@ const handleClick = (event: MouseEvent) => {
     ref="button"
     :class="classes"
     :disabled="props.disabled"
+    type="button"
     v-bind="$attrs"
     @click="handleClick"
   >

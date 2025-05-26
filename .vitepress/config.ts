@@ -101,19 +101,19 @@ export default defineConfig({
         text: "Components",
         items: [
           {
-            text: "SignaturePad",
-            link: "/signaturePad",
-          },
-          {
-            text: "Button",
+            text: "Button 按钮",
             link: "/button",
           },
           {
-            text: "Captcha",
+            text: "SignaturePad 签字板",
+            link: "/signaturePad",
+          },
+          {
+            text: "Captcha 行为验证码",
             link: "/captcha",
           },
           {
-            text: "ContextMenu",
+            text: "ContextMenu 右键菜单",
             link: "/contextMenu",
           },
         ],
