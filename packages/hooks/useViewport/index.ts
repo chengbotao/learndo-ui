@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import useEventListener from "../../hooks/useEventListener";
+import useEventListener from "../useEventListener";
 
 const vw = ref(document.documentElement.clientWidth);
 const vh = ref(document.documentElement.clientHeight);

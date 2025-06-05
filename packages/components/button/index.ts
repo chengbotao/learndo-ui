@@ -1,9 +1,9 @@
-import type { App, DefineComponent } from "vue";
-import type { ButtonEmits, ButtonProps } from "./src/button.ts";
+import type { ComponentPublicInstance } from "vue";
+import { withInstall } from "../../helper/install";
 import Button from "./src/Button.vue";
 
-Button.install = (app: App) => {
-  app.component(Button.name!, Button);
-};
+export const LdButton = withInstall(Button);
 
-export default Button as DefineComponent<ButtonProps, ButtonEmits>;
+export type ButtonInstance = ComponentPublicInstance &
+  InstanceType<typeof Button> &
+  unknown;

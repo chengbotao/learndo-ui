@@ -1,31 +1,12 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import classNames from "classnames";
-import useEventListener from "../../hooks/useEventListener";
-
-export interface SliderState {
-  width?: number;
-  moveX?: number;
-  moveY?: number;
-  trail?: number[];
-  duration?: number;
-}
-
-export interface SliderVerifyProps {
-  draggable?: boolean;
-  promptText?: string;
-  state?: -1 | 0 | 1;
-}
-
-export interface SliderVerifyEmits {
-  (event: "thumbMove", params: SliderState): void;
-
-  (event: "thumbEnd", params: SliderState): void;
-}
-
-export interface SliderVerifyExpose {
-  reset: () => void;
-}
+import type {
+  SliderVerifyEmits,
+  SliderVerifyExpose,
+  SliderVerifyProps,
+} from "./captcha.ts";
+import useEventListener from "../../../hooks/useEventListener";
 
 defineOptions({
   name: "LdSliderVerify",
@@ -168,7 +149,7 @@ const verifyHuman = (tail: number[]) => {
 
 useEventListener(thumb, "mousedown", handleStart);
 useEventListener(document, "mousemove", handleMove);
-useEventListener(thumb, ["mouseup", "mouseleave"], handleEnd);
+useEventListener(document, "mouseup", handleEnd);
 
 useEventListener(thumb, "touchstart", handleStart, {
   passive: true,

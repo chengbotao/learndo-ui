@@ -1,20 +1,15 @@
-import type { App, DefineComponent } from "vue";
-import type {
-  SliderVerifyEmits,
-  SliderVerifyExpose,
-  SliderVerifyProps,
-} from "./SliderVerify.vue";
-import SliderVerify from "./SliderVerify.vue";
-import PuzzleVerify, { type PuzzleVerifyProps } from "./PuzzleVerify.vue";
+import type { ComponentPublicInstance } from "vue";
+import { withInstall } from "../../helper/install";
+import SliderVerify from "./src/SliderVerify.vue";
+import PuzzleVerify from "./src/PuzzleVerify.vue";
 
-SliderVerify.install = (app: App) => {
-  app.component(SliderVerify.name!, SliderVerify);
-};
-PuzzleVerify.install = (app: App) => {
-  app.component(PuzzleVerify.name!, PuzzleVerify);
-};
+export const LdSliderVerify = withInstall(SliderVerify);
+export const LdPuzzleVerify = withInstall(PuzzleVerify);
 
-export default [SliderVerify, PuzzleVerify] as [
-  DefineComponent<SliderVerifyProps, SliderVerifyEmits, SliderVerifyExpose>,
-  DefineComponent<PuzzleVerifyProps>,
-];
+export type SliderVerifyInstance = ComponentPublicInstance &
+  InstanceType<typeof SliderVerify> &
+  unknown;
+
+export type PuzzleVerifyInstance = ComponentPublicInstance &
+  InstanceType<typeof PuzzleVerify> &
+  unknown;

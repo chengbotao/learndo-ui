@@ -1,12 +1,9 @@
-import type { App, DefineComponent } from "vue";
-import type { SignaturePadExpose, SignaturePadProps } from "./SignaturePad.vue";
-import SignaturePad from "./SignaturePad.vue";
+import type { ComponentPublicInstance } from "vue";
+import { withInstall } from "../../helper/install";
+import SignaturePad from "./src/SignaturePad.vue";
 
-SignaturePad.install = (app: App) => {
-  app.component(SignaturePad.name!, SignaturePad);
-};
+export const LdSignaturePad = withInstall(SignaturePad);
 
-export default SignaturePad as DefineComponent<
-  SignaturePadProps,
-  SignaturePadExpose
->;
+export type SignaturePadInstance = ComponentPublicInstance &
+  InstanceType<typeof SignaturePad> &
+  unknown;

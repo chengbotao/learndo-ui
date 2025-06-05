@@ -1,12 +1,9 @@
-import type { App, DefineComponent } from "vue";
-import type { ContextMenuEmits, ContextMenuProps } from "./ContextMenu.vue";
-import ContextMenu from "./ContextMenu.vue";
+import type { ComponentPublicInstance } from "vue";
+import { withInstall } from "../../helper/install";
+import ContextMenu from "./src/ContextMenu.vue";
 
-ContextMenu.install = (app: App) => {
-  app.component(ContextMenu.name!, ContextMenu);
-};
+export const LdContextMenu = withInstall(ContextMenu);
 
-export default ContextMenu as DefineComponent<
-  ContextMenuProps,
-  ContextMenuEmits
->;
+export type ContextMenuInstance = ComponentPublicInstance &
+  InstanceType<typeof ContextMenu> &
+  unknown;

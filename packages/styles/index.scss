@@ -2,8 +2,8 @@
 @use "mixins";
 @use "functions";
 @use "animations";
-@use "../components/signaturePad/SignaturePad";
+@use "../components/signaturePad/style/SignaturePad";
 @use "../components/button/style/Button";
-@use "../components/captcha/SliderVerify";
-@use "../components/captcha/PuzzleVerify";
-@use "../components/contextMenu/ContextMenu";
+@use "../components/captcha/style/SliderVerify";
+@use "../components/captcha/style/PuzzleVerify";
+@use "../components/contextMenu/style/ContextMenu";

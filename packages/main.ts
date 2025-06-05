@@ -1,24 +1,33 @@
-import SignaturePad from "./components/signaturePad";
-import Button from "./components/button";
-import Captcha from "./components/captcha";
-import ContextMenu from "./components/contextMenu";
-import type { App, DefineComponent } from "vue";
+import { LdButton } from "./components/button";
+import { LdPuzzleVerify, LdSliderVerify } from "./components/captcha";
+import { LdContextMenu } from "./components/contextMenu";
+import { LdSignaturePad } from "./components/signaturePad";
+import type { App, Plugin } from "vue";
 
-export { default as useEventListener } from "./hooks/useEventListener";
+export * from "./hooks/useEventListener";
+export * from "./hooks/useCountdown";
 
-const components: DefineComponent[] = [
-  SignaturePad,
-  Button,
-  ContextMenu as DefineComponent,
-  ...(Captcha as DefineComponent[]),
+const components: Plugin[] = [
+  LdButton,
+  LdSliderVerify,
+  LdPuzzleVerify,
+  LdContextMenu,
+  LdSignaturePad,
 ];
 
 const install = (app: App) => {
-  components.forEach((component) => {
-    app.component(component.name!, component);
+  components.forEach((c) => {
+    app.use(c);
   });
 };
 
-export { SignaturePad, Button, Captcha, install };
+export {
+  LdButton,
+  LdSliderVerify,
+  LdPuzzleVerify,
+  LdContextMenu,
+  LdSignaturePad,
+  install,
+};
 
 export default install;

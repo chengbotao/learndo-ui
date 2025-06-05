@@ -1,21 +1,13 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, watch } from "vue";
 import classNames from "classnames";
-import LdSliderVerify, { type SliderState } from "./SliderVerify.vue";
-
-export interface PuzzleVerifyProps {
-  puzzleImg: string;
-  blockImg: string;
-  blockY?: number;
-}
-
-export interface PuzzleVerifyEmits {
-  (e: "moveEnd", state: SliderState, scaleX: number, scaleY: number): void;
-}
-
-export interface PuzzleVerifyExpose {
-  reset: () => void;
-}
+import LdSliderVerify from "./SliderVerify.vue";
+import type {
+  PuzzleVerifyEmits,
+  PuzzleVerifyExpose,
+  PuzzleVerifyProps,
+  SliderState,
+} from "./captcha.ts";
 
 defineOptions({
   name: "LdPuzzleVerify",
