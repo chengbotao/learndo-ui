@@ -23,6 +23,10 @@ const classes = computed(() => {
 });
 // methods
 const handleClick = (event: MouseEvent) => {
+  if (props.disabled) {
+    event.stopPropagation();
+    return;
+  }
   emits("click", event);
 };
 </script>
@@ -30,6 +34,7 @@ const handleClick = (event: MouseEvent) => {
 <template>
   <button
     ref="button"
+    :aria-disabled="props.disabled"
     :class="classes"
     :disabled="props.disabled"
     type="button"
