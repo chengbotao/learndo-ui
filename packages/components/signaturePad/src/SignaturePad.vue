@@ -3,18 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import classNames from "classnames";
 import useEventListener from "../../../hooks/useEventListener";
 
-export interface SignaturePadProps {
-  className?: string;
-  fillStyle?: string;
-  strokeStyle?: string;
-  lineWidth?: number;
-  lineStyle?: (ctx: CanvasRenderingContext2D) => void;
-}
-
-export interface SignaturePadExpose {
-  resetSignaturePad: () => void;
-  getSignatureDataURL: () => string | undefined;
-}
+import type { SignaturePadExpose, SignaturePadProps } from "./signature-pad.ts";
 
 defineOptions({
   name: "LdSignaturePad",
@@ -41,7 +30,7 @@ const drawSignaturePad = () => {
   if (canvas) {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
-    canvas2D.value = canvas.getContext("2d");
+    canvas2D.value = canvas.getContext("2d", { willReadFrequently: true });
     if (canvas2D.value) {
       canvas2D.value.fillStyle = props.fillStyle;
       canvas2D.value.fillRect(0, 0, canvas.width, canvas.height);
@@ -138,6 +127,45 @@ useEventListener(
   ["mouseup", "mouseleave", "touchend"],
   handleEnd,
 );
+
+const hasSignature = () => {
+  if (!signaturePad.value || !canvas2D.value) return false;
+
+  // 获取画布像素数据
+  const canvas = signaturePad.value;
+  const ctx = canvas2D.value;
+  const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+  // 对比像素与背景色差异（跳过完全透明的像素）
+  const bgColor = props.fillStyle || "#f8f9fa";
+  const [r, g, b] = hexToRgb(bgColor); // 需要实现hex转rgb函数
+
+  for (let i = 0; i < data.length; i += 4) {
+    const pixelR = data[i];
+    const pixelG = data[i + 1];
+    const pixelB = data[i + 2];
+    const alpha = data[i + 3];
+
+    // 存在非背景色且不透明的像素 → 视为有签名
+    if (alpha > 0 && !(pixelR === r && pixelG === g && pixelB === b)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// 辅助函数：十六进制颜色转RGB
+const hexToRgb = (hex: string): [number, number, number] => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+      ]
+    : [248, 249, 250]; // 默认背景色RGB
+};
+
 onMounted(() => {
   drawSignaturePad();
 });
@@ -145,6 +173,7 @@ onMounted(() => {
 defineExpose<SignaturePadExpose>({
   resetSignaturePad,
   getSignatureDataURL,
+  hasSignature,
 });
 </script>
 

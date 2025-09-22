@@ -1,11 +1,11 @@
 type Size = "large" | "small";
-type Typeface = "primary" | "danger";
+type Typeface = "primary" | "danger" | "success" | "warning" | "info";
 
 export interface ButtonProps {
   disabled?: boolean;
   size?: Size;
   typeFace?: Typeface;
-  loading?: boolean;
+  // loading?: boolean;
 }
 
 export interface ButtonEmits {

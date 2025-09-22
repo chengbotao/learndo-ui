@@ -8,7 +8,7 @@ defineOptions({
 });
 
 export interface ContextMenuProps {
-  menus: Record<string, never>[];
+  menus: Record<string, unknown>[];
 }
 
 export interface ContextMenuEmits {
@@ -66,7 +66,7 @@ const handleAfterEnter = (el: Element) => {
 </script>
 
 <template>
-  <div ref="contextMenu">
+  <div ref="contextMenu" class="ld-context-menu-wrapper">
     <slot></slot>
     <teleport to="body">
       <transition
@@ -78,7 +78,7 @@ const handleAfterEnter = (el: Element) => {
         <ul v-if="showMenu" :style="contextMenuStyle" class="ld-context-menu">
           <li
             v-for="item in props.menus"
-            :key="item.id"
+            :key="item.id as string"
             @click="handleClick($event, item)"
           >
             <template v-if="!slots.contextMenuItem">
