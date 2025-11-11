@@ -7,6 +7,15 @@ import eslintConfigPrettier from "eslint-config-prettier";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
+    ignores: [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      "**/*.d.ts",
+      "public/**",
+    ],
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,vue}"],
   },
   {

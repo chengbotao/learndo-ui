@@ -4,8 +4,7 @@ import { LdContextMenu } from "./components/contextMenu";
 import { LdSignaturePad } from "./components/signaturePad";
 import type { App, Plugin } from "vue";
 
-export * from "./hooks/useEventListener";
-export * from "./hooks/useCountdown";
+export * from "./hooks";
 
 const components: Plugin[] = [
   LdButton,

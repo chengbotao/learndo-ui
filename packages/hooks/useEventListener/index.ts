@@ -14,7 +14,7 @@ type ListenerAndOptions = [
   EventListenerOrEventListenerObject,
   (boolean | AddEventListenerOptions)?,
 ];
-export default function useEventListener(
+export function useEventListener(
   target: EventListenerTarget,
   events: Events,
   listeners: ListenerAndOptions[] | Listeners,

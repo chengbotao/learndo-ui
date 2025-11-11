@@ -17,10 +17,15 @@ onMounted(() => {
 const puzzleImg = ref();
 const blockImg = ref();
 
-const getRandomNumberByRange = (start, end) => {
+const getRandomNumberByRange = (start: number, end: number) => {
   return Math.round(Math.random() * (end - start) + start);
 };
-const draw = (ctx, x, y, operation) => {
+const draw = (
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  operation: "fill" | "clip",
+) => {
   let l = 42;
   let r = 10;
   ctx.beginPath();

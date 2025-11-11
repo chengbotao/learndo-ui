@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, useSlots } from "vue";
 import { useContextMenu } from "./composables/useContextMenu";
-import { useViewport } from "../../../hooks/useViewport";
+import { useViewport } from "../../../hooks";
 
 defineOptions({
   name: "LdContextMenu",

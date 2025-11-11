@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import type { SliderState } from "../src/captcha.ts";
 
 const sliderVerify = ref();
 const state = ref(-1);
@@ -9,9 +10,9 @@ const state2 = ref(-1);
 const handleThumbMove = () => {
   console.log("滑动中");
 };
-const handleThumbEnd = (sliderState) => {
+const handleThumbEnd = (sliderState: SliderState) => {
   console.log("滑动结束");
-  if (sliderState.moveX === sliderState.width - 40) {
+  if (sliderState.moveX === sliderState.width! - 40) {
     state.value = 1;
   } else {
     state.value = 0;
@@ -21,17 +22,17 @@ const handleThumbEnd = (sliderState) => {
     }, 1000);
   }
 };
-const handleThumbEnd1 = (sliderState) => {
+const handleThumbEnd1 = (sliderState: SliderState) => {
   console.log("滑动结束");
-  if (sliderState.moveX === sliderState.width - 40) {
+  if (sliderState.moveX === sliderState.width! - 40) {
     state1.value = 1;
   } else {
     state1.value = 0;
   }
 };
-const handleThumbEnd2 = (sliderState) => {
+const handleThumbEnd2 = (sliderState: SliderState) => {
   console.log("滑动结束");
-  if (sliderState.moveX === sliderState.width - 40) {
+  if (sliderState.moveX === sliderState.width! - 40) {
     state2.value = 1;
   } else {
     state2.value = 0;

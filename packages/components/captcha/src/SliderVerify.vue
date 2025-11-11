@@ -6,7 +6,7 @@ import type {
   SliderVerifyExpose,
   SliderVerifyProps,
 } from "./captcha.ts";
-import useEventListener from "../../../hooks/useEventListener";
+import { useEventListener } from "../../../hooks";
 
 defineOptions({
   name: "LdSliderVerify",

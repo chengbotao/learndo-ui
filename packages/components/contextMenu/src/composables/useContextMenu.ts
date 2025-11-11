@@ -1,7 +1,5 @@
 import { ref } from "vue";
-import useEventListener, {
-  type EventListenerTarget,
-} from "../../../../hooks/useEventListener";
+import { type EventListenerTarget, useEventListener } from "../../../../hooks";
 
 export function useContextMenu(contextMenu: EventListenerTarget) {
   const showMenu = ref(false);
