@@ -3,19 +3,19 @@
   "version": "1.0.1-alpha.2",
   "description": "Vue3 components library",
   "type": "module",
+  "types": "types/index.d.ts",
   "main": "dist/learndo-ui.umd.cjs",
   "module": "dist/learndo-ui.js",
   "style": "./theme-chalk/index.css",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/learndo-ui.js",
-      "require": "./dist/learndo-ui.umd.cjs",
-      "types": "./types/index.d.ts"
+      "require": "./dist/learndo-ui.umd.cjs"
     },
     "./theme-chalk/index.css": "./theme-chalk/index.css",
     "./theme-chalk/*": "./theme-chalk/*"
   },
-  "types": "types/index.d.ts",
   "scripts": {
     "build": "pnpm clean && vue-tsc -b && vite build && pnpm build:scss",
     "docs:dev": "vitepress dev",
