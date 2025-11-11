@@ -9,7 +9,8 @@
   "exports": {
     ".": {
       "import": "./dist/learndo-ui.js",
-      "require": "./dist/learndo-ui.umd.cjs"
+      "require": "./dist/learndo-ui.umd.cjs",
+      "types": "./types/index.d.ts"
     },
     "./theme-chalk/index.css": "./theme-chalk/index.css",
     "./theme-chalk/*": "./theme-chalk/*"
