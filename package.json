@@ -23,7 +23,7 @@
     "docs:preview": "vitepress preview",
     "test": "vitest",
     "build:scss": "tsx node_modules/gulp/bin/gulp.js",
-    "clean": "rimraf dist types theme-chalk",
+    "clean": "rimraf dist theme-chalk",
     "prepare": "husky",
     "commit": "git-cz",
     "preinstall": "npx only-allow pnpm",
