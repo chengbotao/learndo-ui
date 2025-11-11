@@ -5,11 +5,14 @@
   "type": "module",
   "main": "dist/learndo-ui.umd.cjs",
   "module": "dist/learndo-ui.js",
+  "style": "./theme-chalk/index.css",
   "exports": {
     ".": {
       "import": "./dist/learndo-ui.js",
       "require": "./dist/learndo-ui.umd.cjs"
-    }
+    },
+    "./theme-chalk/index.css": "./theme-chalk/index.css",
+    "./theme-chalk/*": "./theme-chalk/*"
   },
   "types": "types/index.d.ts",
   "scripts": {
