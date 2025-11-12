@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
-import dts from "unplugin-dts/vite";
+import dts from "vite-plugin-dts";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -26,10 +26,9 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      outDirs: "types",
+      outDir: "types",
       tsconfigPath: "./tsconfig.app.json",
-      processor: "vue",
-      insertTypesEntry: true,
+      exclude: ["**/__tests__"],
     }),
   ],
 });
