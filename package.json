@@ -1,6 +1,6 @@
 {
   "name": "learndo-ui",
-  "version": "1.0.1-alpha.4",
+  "version": "1.0.1-alpha.5",
   "description": "Vue3 components library",
   "type": "module",
   "types": "types/main.d.ts",
