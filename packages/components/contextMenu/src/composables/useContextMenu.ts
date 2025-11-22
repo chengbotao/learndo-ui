@@ -1,5 +1,5 @@
-import { ref } from "vue";
-import { type EventListenerTarget, useEventListener } from "../../../../hooks";
+import { ref } from 'vue';
+import { type EventListenerTarget, useEventListener } from '../../../../hooks';
 
 export function useContextMenu(contextMenu: EventListenerTarget) {
   const showMenu = ref(false);
@@ -16,8 +16,8 @@ export function useContextMenu(contextMenu: EventListenerTarget) {
   const closeMenu = () => {
     showMenu.value = false;
   };
-  useEventListener(document, "click", closeMenu, true);
-  useEventListener(document, "contextmenu", closeMenu, true);
-  useEventListener(contextMenu, "contextmenu", handleContextMenu);
+  useEventListener(document, 'click', closeMenu, true);
+  useEventListener(document, 'contextmenu', closeMenu, true);
+  useEventListener(contextMenu, 'contextmenu', handleContextMenu);
   return { x, y, showMenu };
 }

@@ -1,4 +1,4 @@
-import type { App, AppContext, Component, Directive, Plugin } from "vue";
+import type { App, AppContext, Component, Directive, Plugin } from 'vue';
 
 export type SFCWithInstall<T> = T & Plugin;
 
@@ -23,10 +23,7 @@ export const withInstallFunction = <T extends Plugin>(fn: T, name: string) => {
   return fn as SFCInstallWithContext<T>;
 };
 
-export const withInstallDirective = <T extends Directive>(
-  directive: T,
-  name: string,
-) => {
+export const withInstallDirective = <T extends Directive>(directive: T, name: string) => {
   (directive as SFCWithInstall<T>).install = (app: App): void => {
     app.directive(name, directive);
   };

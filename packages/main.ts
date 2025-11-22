@@ -1,10 +1,10 @@
-import { LdButton } from "./components/button";
-import { LdPuzzleVerify, LdSliderVerify } from "./components/captcha";
-import { LdContextMenu } from "./components/contextMenu";
-import { LdSignaturePad } from "./components/signaturePad";
-import type { App, Plugin } from "vue";
+import { LdButton } from './components/button';
+import { LdPuzzleVerify, LdSliderVerify } from './components/captcha';
+import { LdContextMenu } from './components/contextMenu';
+import { LdSignaturePad } from './components/signaturePad';
+import type { App, Plugin } from 'vue';
 
-export * from "./hooks";
+export * from './hooks';
 
 const components: Plugin[] = [
   LdButton,
@@ -20,13 +20,6 @@ const install = (app: App) => {
   });
 };
 
-export {
-  LdButton,
-  LdSliderVerify,
-  LdPuzzleVerify,
-  LdContextMenu,
-  LdSignaturePad,
-  install,
-};
+export { LdButton, LdSliderVerify, LdPuzzleVerify, LdContextMenu, LdSignaturePad, install };
 
 export default install;

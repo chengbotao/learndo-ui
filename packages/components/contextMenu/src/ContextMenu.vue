@@ -1,68 +1,64 @@
 <script lang="ts" setup>
-import { computed, ref, useSlots } from "vue";
-import { useContextMenu } from "./composables/useContextMenu";
-import { useViewport } from "../../../hooks";
+  import { computed, ref, useSlots } from 'vue';
+  import { useContextMenu } from './composables/useContextMenu';
+  import { useViewport } from '../../../hooks';
 
-defineOptions({
-  name: "LdContextMenu",
-});
-
-export interface ContextMenuProps {
-  menus: Record<string, unknown>[];
-}
-
-export interface ContextMenuEmits {
-  (e: "select", item: Record<string, unknown>): void;
-}
-
-const contextMenu = ref<HTMLElement | null>(null);
-const w = ref(0);
-const h = ref(0);
-const { x, y, showMenu } = useContextMenu(contextMenu);
-const { vw, vh } = useViewport();
-const contextMenuStyle = computed(() => {
-  let finalX = x.value;
-  let finalY = y.value;
-  if (x.value + w.value > vw.value) {
-    finalX -= w.value;
-  }
-  if (y.value + h.value > vh.value) {
-    finalY -= y.value - vh.value + h.value;
-  }
-  return {
-    left: `${finalX}px`,
-    top: `${finalY}px`,
-  };
-});
-const props = withDefaults(defineProps<ContextMenuProps>(), {
-  menus: () => [],
-});
-const slots = useSlots();
-const emit = defineEmits<ContextMenuEmits>();
-
-const handleClick = (event: Event, item: Record<string, unknown>) => {
-  event.preventDefault();
-  showMenu.value = false;
-  emit("select", item);
-};
-const handleBeforeEnter = (el: Element) => {
-  (el as HTMLElement).style.height = "0";
-};
-const handleEnter = (el: Element) => {
-  (el as HTMLElement).style.height = "auto";
-  const width = (el as HTMLElement).clientWidth;
-  const height = (el as HTMLElement).clientHeight;
-  w.value = width;
-  h.value = height;
-  (el as HTMLElement).style.height = "0";
-  requestAnimationFrame(() => {
-    (el as HTMLElement).style.height = `${height}px`;
-    (el as HTMLElement).style.transition = "0.5s";
+  defineOptions({
+    name: 'LdContextMenu',
   });
-};
-const handleAfterEnter = (el: Element) => {
-  (el as HTMLElement).style.transition = "none";
-};
+
+  export interface ContextMenuProps {
+    menus: Record<string, unknown>[];
+  }
+
+  export type ContextMenuEmits = (e: 'select', item: Record<string, unknown>) => void;
+
+  const contextMenu = ref<HTMLElement | null>(null);
+  const w = ref(0);
+  const h = ref(0);
+  const { x, y, showMenu } = useContextMenu(contextMenu);
+  const { vw, vh } = useViewport();
+  const contextMenuStyle = computed(() => {
+    let finalX = x.value;
+    let finalY = y.value;
+    if (x.value + w.value > vw.value) {
+      finalX -= w.value;
+    }
+    if (y.value + h.value > vh.value) {
+      finalY -= y.value - vh.value + h.value;
+    }
+    return {
+      left: `${finalX}px`,
+      top: `${finalY}px`,
+    };
+  });
+  const props = withDefaults(defineProps<ContextMenuProps>(), {});
+  const slots = useSlots();
+  const emit = defineEmits<ContextMenuEmits>();
+
+  const handleClick = (event: Event, item: Record<string, unknown>) => {
+    event.preventDefault();
+    showMenu.value = false;
+    emit('select', item);
+  };
+  const handleBeforeEnter = (el: Element) => {
+    (el as HTMLElement).style.height = '0';
+  };
+  const handleEnter = (el: Element) => {
+    (el as HTMLElement).style.height = 'auto';
+    const width = (el as HTMLElement).clientWidth;
+    const height = (el as HTMLElement).clientHeight;
+    w.value = width;
+    h.value = height;
+    (el as HTMLElement).style.height = '0';
+    requestAnimationFrame(() => {
+      (el as HTMLElement).style.height = `${height}px`;
+      (el as HTMLElement).style.transition = '0.5s';
+    });
+  };
+  const handleAfterEnter = (el: Element) => {
+    (el as HTMLElement).style.transition = 'none';
+  };
 </script>
 
 <template>

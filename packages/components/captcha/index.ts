@@ -1,7 +1,7 @@
-import type { ComponentPublicInstance } from "vue";
-import { withInstall } from "../../helper/install";
-import SliderVerify from "./src/SliderVerify.vue";
-import PuzzleVerify from "./src/PuzzleVerify.vue";
+import type { ComponentPublicInstance } from 'vue';
+import { withInstall } from '../../helper/install';
+import SliderVerify from './src/SliderVerify.vue';
+import PuzzleVerify from './src/PuzzleVerify.vue';
 
 export const LdSliderVerify = withInstall(SliderVerify);
 export const LdPuzzleVerify = withInstall(PuzzleVerify);

@@ -1,5 +1,5 @@
-import { ref } from "vue";
-import { useEventListener } from "../useEventListener";
+import { ref } from 'vue';
+import { useEventListener } from '../useEventListener';
 
 const vw = ref(document.documentElement.clientWidth);
 const vh = ref(document.documentElement.clientHeight);
@@ -10,6 +10,6 @@ export function useViewport() {
     vh.value = document.documentElement.clientHeight;
   };
 
-  useEventListener(window, "click", handleResize, true);
+  useEventListener(window, 'click', handleResize, true);
   return { vw, vh };
 }

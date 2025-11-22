@@ -12,9 +12,12 @@ export interface PuzzleVerifyProps {
   blockY?: number;
 }
 
-export interface PuzzleVerifyEmits {
-  (e: "moveEnd", state: SliderState, scaleX: number, scaleY: number): void;
-}
+export type PuzzleVerifyEmits = (
+  e: 'moveEnd',
+  state: SliderState,
+  scaleX: number,
+  scaleY: number,
+) => void;
 
 export interface PuzzleVerifyExpose {
   reset: () => void;
@@ -27,9 +30,9 @@ export interface SliderVerifyProps {
 }
 
 export interface SliderVerifyEmits {
-  (event: "thumbMove", params: SliderState): void;
+  (event: 'thumbMove', params: SliderState): void;
 
-  (event: "thumbEnd", params: SliderState): void;
+  (event: 'thumbEnd', params: SliderState): void;
 }
 
 export interface SliderVerifyExpose {

@@ -1,5 +1,6 @@
-import type { ComponentPublicInstance, MaybeRef, MaybeRefOrGetter } from "vue";
-import { getCurrentScope, onScopeDispose, toValue, watch } from "vue";
+import type { ComponentPublicInstance, MaybeRef, MaybeRefOrGetter } from 'vue';
+import { getCurrentScope, onScopeDispose, toValue, watch } from 'vue';
+import noop from '../../helper/noop.ts';
 
 export type EventListenerTarget = MaybeRefOrGetter<
   EventTarget | HTMLElement | Window | Document | null | undefined
@@ -21,7 +22,7 @@ export function useEventListener(
   options?: boolean | AddEventListenerOptions,
   mapping?: boolean,
 ) {
-  if (!target) return () => {};
+  if (!target) return noop;
   events = Array.isArray(events) ? events : [events];
   listeners = Array.isArray(listeners) ? listeners : [listeners];
   listeners = listeners.map((listener) => {
@@ -55,11 +56,7 @@ export function useEventListener(
       (
         toValue(
           target as unknown as MaybeRef<
-            | HTMLElement
-            | SVGElement
-            | ComponentPublicInstance
-            | undefined
-            | null
+            HTMLElement | SVGElement | ComponentPublicInstance | undefined | null
           >,
         ) as ComponentPublicInstance
       )?.$el ?? toValue(target),
@@ -78,7 +75,7 @@ export function useEventListener(
         }),
       );
     },
-    { immediate: true, flush: "post" },
+    { immediate: true, flush: 'post' },
   );
 
   const stop = () => {

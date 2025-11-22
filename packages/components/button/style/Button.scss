@@ -1,4 +1,5 @@
 @use 'sass:color';
+
 // config
 @use "../../../styles/variables" as *;
 
@@ -10,7 +11,7 @@ $btn-font-family: $font-family-base !default;
 $btn-font-size: $font-size-base !default;
 $btn-line-height: $line-height-base !default;
 
-//不同大小按钮的 padding 和 font size
+// 不同大小按钮的 padding 和 font size
 $btn-padding-y-sm: 0.25rem !default;
 $btn-padding-x-sm: 0.5rem !default;
 $btn-font-size-sm: $font-size-sm !default;
@@ -20,14 +21,11 @@ $btn-font-size-lg: $font-size-lg !default;
 
 // 按钮边框
 $btn-border-width: $border-width !default;
-
 $btn-box-shadow: inset 0 1px 0 rgba($white, 0.15), 0 1px 1px rgba($black, 0.075) !default;
 $btn-disabled-opacity: 0.65 !default;
-
 $btn-border-radius: $border-radius !default;
 $btn-border-radius-lg: $border-radius-lg !default;
 $btn-border-radius-sm: $border-radius-sm !default;
-
 $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
 
@@ -46,25 +44,28 @@ border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
   $hover-border: color.adjust($border, $lightness:10%),
   $hover-color: $color
 ) {
+  color: $color;
   background: $background;
   border-color: $border;
-  color: $color;
+
   &:hover {
+    color: $hover-color;
     background: $hover-background;
     border-color: $hover-border;
-    color: $hover-color;
   }
+
   &:focus,
   &.focus {
+    color: $hover-color;
     background: $hover-background;
     border-color: $hover-border;
-    color: $hover-color;
   }
+
   &:disabled,
   &.disabled {
+    color: $color;
     background: $background;
     border-color: $border;
-    color: $color;
   }
 }
 
@@ -74,12 +75,16 @@ border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
   display: inline-block;
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
-  color: $body-color;
-  white-space: nowrap;
-  text-align: center;
   vertical-align: middle;
+  color: $body-color;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
   background-image: none;
   border: $btn-border-width solid transparent;
+  box-shadow: $btn-box-shadow;
+  transition: $btn-transition;
+
   @include button-size(
                   $btn-padding-y,
                   $btn-padding-x,
@@ -94,15 +99,12 @@ border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
                   $primary,
                   $primary
   );
-  box-shadow: $btn-box-shadow;
-  cursor: pointer;
-  transition: $btn-transition;
 
   &.disabled,
   &[disabled] {
+    box-sizing: unset;
     cursor: not-allowed;
     opacity: $btn-disabled-opacity;
-    box-sizing: unset;
 
     > * {
       pointer-events: none; // 不接受鼠标事件

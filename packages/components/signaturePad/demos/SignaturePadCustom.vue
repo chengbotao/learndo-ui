@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+  import { ref } from 'vue';
 
-const signatureRef = ref();
-const outputDataUrl = ref("");
+  const signatureRef = ref();
+  const outputDataUrl = ref('');
 
-// 获取签名数据并展示
-const handleSave = () => {
-  const dataUrl = signatureRef.value?.getSignatureDataURL();
-  if (dataUrl) outputDataUrl.value = dataUrl;
-};
+  // 获取签名数据并展示
+  const handleSave = () => {
+    const dataUrl = signatureRef.value?.getSignatureDataURL();
+    if (dataUrl) outputDataUrl.value = dataUrl;
+  };
 
-// 重置签名板
-const handleReset = () => {
-  signatureRef.value?.resetSignaturePad();
-  outputDataUrl.value = "";
-};
+  // 重置签名板
+  const handleReset = () => {
+    signatureRef.value?.resetSignaturePad();
+    outputDataUrl.value = '';
+  };
 </script>
 
 <template>
   <LdSignaturePad
     ref="signatureRef"
-    :lineWidth="4"
+    :line-width="4"
     class="custom-signature"
-    fillStyle="#f0f8ff"
-    strokeStyle="#2c3e50"
+    fill-style="#f0f8ff"
+    stroke-style="#2c3e50"
   />
 
   <ld-button @click="handleReset">重置</ld-button>
@@ -35,21 +35,22 @@ const handleReset = () => {
 </template>
 
 <style lang="scss" scoped>
-.custom-signature {
-  height: 200px;
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-}
-
-.preview {
-  margin-top: 20px;
-  padding: 16px;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  .preview-img {
-    max-width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  .custom-signature {
+    height: 200px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
   }
-}
+
+  .preview {
+    padding: 16px;
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+
+    .preview-img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  }
 </style>

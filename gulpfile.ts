@@ -1,17 +1,17 @@
-import path from "path";
-import { Transform } from "stream";
-import chalk from "chalk";
-import { dest, parallel, series, src, type TaskFunction } from "gulp";
-import gulpSass from "gulp-sass";
-import dartSass from "sass";
-import autoprefixer from "gulp-autoprefixer";
-import rename from "gulp-rename";
-import consola from "consola";
-import postcss from "postcss";
-import cssnano from "cssnano";
-import type Vinyl from "vinyl";
+import path from 'path';
+import { Transform } from 'stream';
+import chalk from 'chalk';
+import { dest, parallel, series, src, type TaskFunction } from 'gulp';
+import gulpSass from 'gulp-sass';
+import dartSass from 'sass';
+import autoprefixer from 'gulp-autoprefixer';
+import rename from 'gulp-rename';
+import consola from 'consola';
+import postcss from 'postcss';
+import cssnano from 'cssnano';
+import type Vinyl from 'vinyl';
 
-const distFolder = path.resolve(__dirname, "theme-chalk");
+const distFolder = path.resolve(__dirname, 'theme-chalk');
 
 /**
  * using `postcss` and `cssnano` to compress CSS
@@ -22,7 +22,7 @@ function compressWithCssnano() {
   const processor = postcss([
     cssnano({
       preset: [
-        "default",
+        'default',
         {
           colormin: false,
           minifyFontValues: false,
@@ -39,7 +39,7 @@ function compressWithCssnano() {
         return;
       }
       if (file.isStream()) {
-        callback(new Error("Streaming not supported"));
+        callback(new Error('Streaming not supported'));
         return;
       }
       const cssString = file.contents!.toString();
@@ -64,13 +64,13 @@ function compressWithCssnano() {
 function buildThemeChalk() {
   const sass = gulpSass(dartSass);
   const noLdPrefixFile = /(index|base|display)/;
-  return src(path.resolve(__dirname, "packages/**/*.scss"))
+  return src(path.resolve(__dirname, 'packages/**/*.scss'))
     .pipe(sass.sync())
     .pipe(autoprefixer({ cascade: false }))
     .pipe(compressWithCssnano())
     .pipe(
       rename((path) => {
-        path.dirname = path.dirname.replace(/[\\/]?style(s)?$/, "");
+        path.dirname = path.dirname.replace(/[\\/]?style(s)?$/, '');
         if (!noLdPrefixFile.test(path.basename)) {
           path.basename = `ld-${path.basename}`;
         }

@@ -5,11 +5,11 @@
  * @returns 返回创建好的伪造元素
  */
 function createFakeElement(value: string): HTMLTextAreaElement {
-  const fakeElement = document.createElement("textarea");
-  fakeElement.setAttribute("readonly", ""); // 设置为只读，防止用户编辑
-  fakeElement.style.position = "absolute"; // 设置为绝对定位
-  fakeElement.style.left = "-9999px"; // 将元素隐藏在页面外
-  fakeElement.style.opacity = "0";
+  const fakeElement = document.createElement('textarea');
+  fakeElement.setAttribute('readonly', ''); // 设置为只读，防止用户编辑
+  fakeElement.style.position = 'absolute'; // 设置为绝对定位
+  fakeElement.style.left = '-9999px'; // 将元素隐藏在页面外
+  fakeElement.style.opacity = '0';
   fakeElement.value = value; // 设置元素的值为需要复制的文本
   return fakeElement;
 }
@@ -27,7 +27,7 @@ export const clipboard = ((): ((text: string) => Promise<string>) => {
     return async (text: string) => {
       // 使用 navigator.clipboard.writeText 将文本写入剪贴板
       return await navigator.clipboard.writeText(text).then(() => {
-        console.log("Text copied to clipboard successfully");
+        console.log('Text copied to clipboard successfully');
         return text; // 返回复制的文本
       });
     };
@@ -39,11 +39,11 @@ export const clipboard = ((): ((text: string) => Promise<string>) => {
         document.body.appendChild(fakeElement); // 将伪造元素添加到页面中
         fakeElement.select(); // 选中伪造元素的内容
         try {
-          const result = document.execCommand("copy"); // 执行复制操作
+          const result = document.execCommand('copy'); // 执行复制操作
           if (result) {
             resolve(text); // 复制成功时返回复制的文本
           } else {
-            reject(new Error("Failed to copy text"));
+            reject(new Error('Failed to copy text'));
           }
         } catch (error) {
           reject(error); // 复制失败时抛出错误

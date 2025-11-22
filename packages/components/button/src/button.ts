@@ -1,5 +1,5 @@
-type Size = "large" | "small";
-type Typeface = "primary" | "danger" | "success" | "warning" | "info";
+type Size = 'large' | 'small';
+type Typeface = 'primary' | 'danger' | 'success' | 'warning' | 'info';
 
 export interface ButtonProps {
   disabled?: boolean;
@@ -8,6 +8,4 @@ export interface ButtonProps {
   // loading?: boolean;
 }
 
-export interface ButtonEmits {
-  (event: "click", payload: MouseEvent): void;
-}
+export type ButtonEmits = (event: 'click', payload: MouseEvent) => void;

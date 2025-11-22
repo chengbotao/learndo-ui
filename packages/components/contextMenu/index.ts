@@ -1,6 +1,6 @@
-import type { ComponentPublicInstance } from "vue";
-import { withInstall } from "../../helper/install";
-import ContextMenu from "./src/ContextMenu.vue";
+import type { ComponentPublicInstance } from 'vue';
+import { withInstall } from '../../helper/install';
+import ContextMenu from './src/ContextMenu.vue';
 
 export const LdContextMenu = withInstall(ContextMenu);
 
