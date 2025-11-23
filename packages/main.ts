@@ -4,7 +4,7 @@ import { LdContextMenu } from './components/contextMenu';
 import { LdSignaturePad } from './components/signaturePad';
 import type { App, Plugin } from 'vue';
 
-export * from './hooks';
+export * from './composables';
 
 const components: Plugin[] = [
   LdButton,

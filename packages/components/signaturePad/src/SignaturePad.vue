@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
   import classNames from 'classnames';
-  import { useEventListener } from '../../../hooks';
+  import { useEventListener } from '../../../composables';
 
   import type { SignaturePadExpose, SignaturePadProps } from './signature-pad.ts';
 

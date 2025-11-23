@@ -2,7 +2,7 @@
   import { computed, onMounted, ref } from 'vue';
   import classNames from 'classnames';
   import type { SliderVerifyEmits, SliderVerifyExpose, SliderVerifyProps } from './captcha.ts';
-  import { useEventListener } from '../../../hooks';
+  import { useEventListener } from '../../../composables';
 
   defineOptions({
     name: 'LdSliderVerify',
