@@ -5,7 +5,7 @@
 ## 基本用法
 
 ::: demo button/demos/TypeFace
-通过 `type-face` 属性提供多种外观类型，用于设置不同状态的颜色。
+通过 `type-face` 属性提供多种外观类型，用于设置不同状态的颜色; 自定义样式。
 :::
 
 ## 禁用状态
@@ -17,7 +17,7 @@
 ## 调整尺寸
 
 ::: demo button/demos/TypeSize
-使用 `size` 属性额外配置尺寸，可使用 `large`和`small`两种值
+使用 `size` 属性额外配置尺寸，可使用 `lg`、`md`、`sm`
 :::
 
 ## API
@@ -26,10 +26,10 @@
 
 > 支持原生 [`Button`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Elements/button) 属性
 
-| 属性名       | 说明     | 类型                                                          | 默认值 |
-|-----------|--------|-------------------------------------------------------------|-----|
-| size      | 按钮尺寸大小 | `'large' \| 'small'`                                        | —   |
-| type-face | 按钮外观类型 | `'primary' \| 'success' \| 'info' \| 'warning' \| 'danger'` | —   |
+| 属性名       | 说明     | 类型                                                                                              | 默认值 |
+|-----------|--------|-------------------------------------------------------------------------------------------------|-----|
+| size      | 按钮尺寸大小 | `'lg' \| 'md' \| 'small'`                                                                       | —   |
+| type-face | 按钮外观类型 | `'primary' \| 'success' \| 'danger' \| 'warning' \| 'info' \| 'secondary' \| 'light' \| 'dark'` | —   |
 
 ### Events
 

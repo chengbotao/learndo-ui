@@ -29,25 +29,25 @@ describe('LdButton', () => {
     ];
     types.forEach((type) => {
       const wrapper = mount(LdButton, { props: { typeFace: type } });
-      expect(wrapper.classes()).toContain(`ld-button-${type}`);
+      expect(wrapper.classes()).toContain(`ld-button--${type}`);
     });
   });
 
   // 测试3: 正确应用size属性
   it('should apply correct size class', () => {
     const wrapper = mount(LdButton, {
-      props: { size: 'large' },
+      props: { size: 'lg' },
     });
-    expect(wrapper.classes()).toContain('ld-button-large');
+    expect(wrapper.classes()).toContain('ld-button--lg');
 
     const smallWrapper = mount(LdButton, {
-      props: { size: 'small' },
+      props: { size: 'sm' },
     });
-    expect(smallWrapper.classes()).toContain('ld-button-small');
+    expect(smallWrapper.classes()).toContain('ld-button--sm');
 
     const defaultWrapper = mount(LdButton);
-    expect(defaultWrapper.classes()).not.toContain('ld-button-large');
-    expect(defaultWrapper.classes()).not.toContain('ld-button-small');
+    expect(defaultWrapper.classes()).not.toContain('ld-button--lg');
+    expect(defaultWrapper.classes()).not.toContain('ld-button--sm');
   });
 
   // 测试4: 点击事件能正常触发

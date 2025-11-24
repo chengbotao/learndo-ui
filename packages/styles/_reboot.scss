@@ -1,18 +1,23 @@
-/** Reboot
-  *
-  * Normalization of HTML elements, manually forked from Normalize.css to remove
-  * styles targeting irrelevant browsers while applying new styles.
-  *
-  * Normalize is licensed MIT. https://github.com/necolas/normalize.css
-  */
+/**
+ * Reboot.scss
+ * 基于 Normalize.css 二次适配，用于统一浏览器默认样式差异
+ * 核心目标：
+ * 1. 重置不一致的浏览器默认样式（margin/padding/border 等）
+ * 2. 统一基础样式规则（盒模型、字体、行高、颜色等）
+ * 3. 适配组件库变量体系，为后续组件提供一致的基础环境
+ * 4. 兼容无障碍规范与多端适配
+ */
 @use "variables" as *;
 
-/* Document
-   ========================================================================== */
+
+// ======================================
+// 文档基础样式：统一全局盒模型、根元素样式
+// ======================================
 
 /**
-  * Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
-  */
+ * 1. 统一盒模型为 border-box：width 不包含 padding/border，避免布局偏差
+ * 2. 覆盖所有元素及伪元素，确保全局一致性
+ */
 *,
 *::before,
 *::after {
@@ -20,260 +25,268 @@
 }
 
 /**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
+ * 1. 修正所有浏览器的行高默认值，提升文本可读性
+ * 2. 禁止 iOS 设备旋转后字体大小自动调整，保证响应式一致性
  */
-
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
-/* Sections
-   ========================================================================== */
+// ======================================
+// 页面主体样式：统一 body 基础样式，奠定页面基调
+// ======================================
 
 /**
-  * 1. Remove the margin in all browsers.
-  * 2. As a best practice, apply a default `background-color`.
-  * 3. Prevent adjustments of font size after orientation changes in IE on Windows Phone and in iOS.
-  * 4. Change the default tap highlight to be completely transparent in iOS.
+ * 1. 清除 body 默认 margin，避免页面多余留白
+ * 2. 绑定组件库字体/字号/字重/行高变量，统一文本基础样式
+ * 3. 绑定组件库主体颜色/背景色变量，确保页面基调一致
+ * 4. 禁止 iOS 点击元素时的默认高亮色，优化交互体验
  */
-
 body {
-  margin: 0; // 1
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  font-weight: $font-weight-base;
-  line-height: $line-height-base;
-  color: $body-color;
-  text-align: $body-text-align;
-  background-color: $body-bg; // 2
-  -webkit-text-size-adjust: 100%; // 3
-  -webkit-tap-highlight-color: rgba($black, 0); // 4
+  margin: 0; /* 1 */
+  font-family: $font-family-base; /* 组件库默认字体 */
+  font-size: $font-size-base; /* 组件库基础字号 */
+  font-weight: $font-weight-base; /* 组件库基础字重 */
+  line-height: $line-height-base; /* 组件库基础行高 */
+  color: $body-color; /* 组件库主体文本色 */
+  text-align: $body-text-align; /* 组件库文本默认对齐方式 */
+  background-color: $body-bg; /* 组件库主体背景色 */
+  -webkit-text-size-adjust: 100%; /* 兼容 IE/Windows Phone 文本大小调整 */
+  -webkit-tap-highlight-color: rgba($black, 0); /* 4 */
 }
 
 /**
- * Render the `main` element consistently in IE.
+ * 修复 IE 浏览器对 main 标签的默认 display 不识别问题
  */
-
 main {
   display: block;
 }
 
-// Typography
-// 1. Remove top margins from headings
-//    By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
-//    margin for easier control within type scales as it avoids margin collapsing.
+// ======================================
+// 标题样式：统一 h1-h6 层级样式，避免浏览器默认差异
+// ======================================
 
+/**
+ * 标题公共样式占位符（%heading）：
+ * 1. 清除顶部 margin，避免与父容器间距冲突（margin 折叠问题）
+ * 2. 统一底部 margin，保证标题与下方内容间距一致
+ * 3. 绑定组件库标题相关变量，确保字体、字重、行高统一
+ */
 %heading {
-  margin-top: 0; // 1
-  margin-bottom: $headings-margin-bottom;
-  font-family: $headings-font-family;
-  font-style: $headings-font-style;
-  font-weight: $headings-font-weight;
-  line-height: $headings-line-height;
-  color: $headings-color;
+  margin-top: 0; /* 1：清除顶部默认 margin */
+  margin-bottom: $headings-margin-bottom; /* 统一底部间距 */
+  font-family: $headings-font-family; /* 标题字体（默认继承基础字体） */
+  font-style: $headings-font-style; /* 标题字体样式（默认无特殊样式） */
+  font-weight: $headings-font-weight; /* 标题字重（统一 500） */
+  line-height: $headings-line-height; /* 标题行高（紧凑层级 1.2） */
+  color: $headings-color; /* 标题颜色（默认继承文本色） */
 }
 
+// 逐个绑定 h1-h6 标签，继承公共样式并设置专属字号
 h1 {
   @extend %heading;
 
-  font-size: $h1-font-size;
+  font-size: $h1-font-size; /* 页面主标题字号 */
 }
 
 h2 {
   @extend %heading;
 
-  font-size: $h2-font-size;
+  font-size: $h2-font-size; /* 区块标题字号 */
 }
 
 h3 {
   @extend %heading;
 
-  font-size: $h3-font-size;
+  font-size: $h3-font-size; /* 卡片/模块标题字号 */
 }
 
 h4 {
   @extend %heading;
 
-  font-size: $h4-font-size;
+  font-size: $h4-font-size; /* 子模块/弹窗标题字号 */
 }
 
 h5 {
   @extend %heading;
 
-  font-size: $h5-font-size;
+  font-size: $h5-font-size; /* 组件内标题/表单分区标题字号 */
 }
 
 h6 {
   @extend %heading;
 
-  font-size: $h6-font-size;
+  font-size: $h6-font-size; /* 辅助标题/备注标题字号 */
 }
 
-/* Grouping content
-   ========================================================================== */
+// ======================================
+// 分组内容样式：hr/pre 等块级内容统一
+// ======================================
 
 /**
- * 1. Add the correct box sizing in Firefox.
- * 2. Show the overflow in Edge and IE.
+ * 1. 修正 Firefox 浏览器中 hr 标签的盒模型问题
+ * 2. 修复 Edge/IE 浏览器中 hr 标签的溢出显示问题
  */
-
 hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
+  box-sizing: content-box; /* 1：确保 width 不受 padding/border 影响 */
+  height: 0; /* 1：重置高度，依赖 border 显示分隔线 */
+  overflow: visible; /* 2：避免内容溢出隐藏 */
+  border-top: $border-width solid $neutral-border-primary; /* 补充默认边框色，对齐变量 */
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. 统一代码块字体（绑定等宽字体变量），确保跨浏览器一致性
+ * 2. 修正所有浏览器中代码块的 em 字号缩放问题
  */
-
 pre {
-  font-family: $font-family-monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  overflow-x: auto; /* 长代码横向滚动，避免溢出 */
+  font-family: $font-family-monospace, monospace; /* 1：组件库等宽字体 */
+  font-size: 1em; /* 2：修正 em 字号继承偏差 */
+  color: $pre-color; /* 绑定代码块文本色变量 */
 }
 
-/* Text-level semantics
-   ========================================================================== */
+// ======================================
+// 文本级语义样式：a/abbr/b/code 等 inline 元素统一
+// ======================================
 
 /**
- * Remove the gray background on active links in IE 10.
+ * 清除 IE 10 中链接激活状态的灰色背景
  */
-
 a {
+  color: $link-color; /* 绑定链接默认色变量 */
+  text-decoration: $link-decoration; /* 绑定链接默认装饰（无下划线） */
   background-color: transparent;
+
+  /**
+   * 补充链接 hover 状态，对齐变量中的交互规则
+   */
+  &:hover {
+    color: $link-hover-color; /* 链接 hover 色 */
+    text-decoration: $link-hover-decoration; /* 链接 hover 装饰（下划线） */
+  }
 }
 
 /**
- * 1. Remove the bottom border in Chrome 57-
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ * 1. 清除 Chrome 57- 中 abbr 标签的底部边框
+ * 2. 统一所有浏览器中 abbr 标签的文本装饰（点划线）
  */
-
 abbr[title] {
   text-decoration: underline; /* 2 */
-
-  /* 2 */
-  text-decoration-style: dotted;
+  text-decoration-style: dotted; /* 2：点划线标识缩写 */
   border-bottom: none; /* 1 */
 }
 
 /**
- * Add the correct font weight in Chrome, Edge, and Safari.
+ * 统一 Chrome/Edge/Safari 浏览器中 b/strong 标签的字重
  */
-
 b,
 strong {
-  font-weight: $font-weight-bolder;
+  font-weight: $font-weight-bolder; /* 组件库极粗字重 */
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. 统一代码类标签（code/kbd/samp）的字体（绑定等宽字体变量）
+ * 2. 修正所有浏览器中代码类标签的 em 字号缩放问题
  */
-
 code,
 kbd,
 samp {
   font-family: $font-family-monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
+  color: $code-color; /* 绑定代码文本色变量 */
 }
 
 /**
- * Add the correct font size in all browsers.
+ * 统一所有浏览器中小文本（small）的字号
  */
-
 small {
-  font-size: 80%;
+  font-size: 80%; /* 相对于父元素字号的 80% */
 }
 
 /**
- * Prevent `sub` and `sup` elements from affecting the line height in
- * all browsers.
+ * 防止 sub/sup 标签影响父元素的行高，统一所有浏览器表现
  */
-
 sub,
 sup {
   position: relative;
-  font-size: 75%;
-  line-height: 0;
+  font-size: 75%; /* 缩小字号 */
+  line-height: 0; /* 取消行高影响 */
   vertical-align: baseline;
 }
 
 sub {
-  bottom: -0.25em;
+  bottom: -0.25em; /* 下标向下偏移 */
 }
 
 sup {
-  top: -0.5em;
+  top: -0.5em; /* 上标向上偏移 */
 }
 
-/* Embedded content
-   ========================================================================== */
+// ======================================
+// 嵌入内容样式：img 等媒体元素统一
+// ======================================
 
 /**
- * Remove the border on images inside links in IE 10.
+ * 清除 IE 10 中链接内图片的默认边框
  */
-
 img {
+  max-width: 100%; /* 图片最大宽度不超过父容器，适配响应式 */
+  height: auto; /* 保持图片宽高比，避免拉伸 */
+  vertical-align: middle; /* 图片垂直居中，避免布局偏移 */
   border-style: none;
 }
 
-/* Forms
-   ========================================================================== */
+// ======================================
+// 表单样式：统一表单元素默认样式，消除浏览器差异
+// ======================================
 
 /**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
+ * 1. 统一所有浏览器中表单元素的字体样式（继承父元素）
+ * 2. 清除 Firefox/Safari 浏览器中表单元素的默认 margin
  */
-
 button,
 input,
 optgroup,
 select,
 textarea {
   margin: 0; /* 2 */
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
+  font-family: inherit; /* 1：继承父元素字体 */
+  font-size: 100%; /* 1：继承父元素字号（100% 避免 rem 换算偏差） */
+  line-height: 1.15; /* 1：统一行高 */
+  color: inherit; /* 继承父元素颜色，保持文本一致性 */
 }
 
 /**
- * Show the overflow in IE.
- * 1. Show the overflow in Edge.
+ * 1. 修复 Edge/IE 浏览器中按钮/输入框的溢出隐藏问题
  */
-
 button,
 input { /* 1 */
   overflow: visible;
 }
 
 /**
- * Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 1. Remove the inheritance of text transform in Firefox.
+ * 1. 清除 Edge/Firefox/IE 浏览器中按钮/选择框的文本转换继承
  */
-
 button,
 select { /* 1 */
   text-transform: none;
 }
 
 /**
- * Correct the inability to style clickable types in iOS and Safari.
+ * 修复 iOS/Safari 浏览器中可点击表单元素的样式无法自定义问题
  */
-
 button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
+  cursor: $cursor-pointer; /* 绑定可点击光标变量 */
 }
 
 /**
- * Remove the inner border and padding in Firefox.
+ * 清除 Firefox 浏览器中按钮内部的默认内边距和边框
  */
-
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
@@ -283,9 +296,8 @@ button::-moz-focus-inner,
 }
 
 /**
- * Restore the focus styles unset by the previous rule.
+ * 恢复 Firefox 浏览器中按钮聚焦态的默认轮廓样式（之前规则清除了）
  */
-
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
@@ -294,50 +306,47 @@ button:-moz-focusring,
 }
 
 /**
- * Correct the padding in Firefox.
+ * 修复 Firefox 浏览器中 fieldset 标签的默认内边距问题
  */
-
 fieldset {
   padding: 0.35em 0.75em 0.625em;
+  margin: 0 2px; /* 统一默认外边距 */
+  border: $border-width solid $neutral-border-primary; /* 统一边框样式，对齐变量 */
 }
 
 /**
- * 1. Correct the text wrapping in Edge and IE.
- * 2. Correct the color inheritance from `fieldset` elements in IE.
- * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
+ * 1. 修复 Edge/IE 浏览器中 legend 标签的文本换行问题
+ * 2. 修复 IE 浏览器中 legend 标签的颜色继承问题
+ * 3. 清除所有浏览器中 legend 标签的默认内边距
  */
-
 legend {
   box-sizing: border-box; /* 1 */
   display: table; /* 1 */
-  max-width: 100%; /* 1 */
+  max-width: 100%; /* 1：避免溢出 */
   padding: 0; /* 3 */
   color: inherit; /* 2 */
   white-space: normal; /* 1 */
 }
 
 /**
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ * 统一 Chrome/Firefox/Opera 浏览器中 progress 标签的垂直对齐方式
  */
-
 progress {
   vertical-align: baseline;
 }
 
 /**
- * Remove the default vertical scrollbar in IE 10+.
+ * 清除 IE 10+ 浏览器中文本域的默认垂直滚动条
  */
-
 textarea {
   overflow: auto;
+  resize: vertical; /* 仅允许垂直拉伸，避免横向布局混乱 */
 }
 
 /**
- * 1. Add the correct box sizing in IE 10.
- * 2. Remove the padding in IE 10.
+ * 1. 修复 IE 10 浏览器中复选框/单选框的盒模型问题
+ * 2. 清除所有浏览器中复选框/单选框的默认内边距
  */
-
 [type="checkbox"],
 [type="radio"] {
   box-sizing: border-box; /* 1 */
@@ -345,76 +354,79 @@ textarea {
 }
 
 /**
- * Correct the cursor style of increment and decrement buttons in Chrome.
+ * 修复 Chrome 浏览器中数字输入框的增减按钮高度问题
  */
-
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
 /**
- * 1. Correct the odd appearance in Chrome and Safari.
- * 2. Correct the outline style in Safari.
+ * 1. 修复 Chrome/Safari 浏览器中搜索框的默认样式问题
+ * 2. 修复 Safari 浏览器中搜索框的轮廓偏移问题
  */
-
 [type="search"] {
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
 
 /**
- * Remove the inner padding in Chrome and Safari on macOS.
+ * 清除 Chrome/Safari（macOS）中搜索框的内部默认内边距
  */
-
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
 /**
- * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
+ * 1. 修复 iOS/Safari 浏览器中文件上传按钮的样式无法自定义问题
+ * 2. 统一 Safari 浏览器中文件上传按钮的字体样式（继承父元素）
  */
-
 ::-webkit-file-upload-button {
   font: inherit; /* 2 */
   -webkit-appearance: button; /* 1 */
 }
 
-/* Interactive
-   ========================================================================== */
+// ======================================
+// 交互元素样式：details/summary 等交互组件统一
+// ======================================
 
-/*
- * Add the correct display in Edge, IE 10+, and Firefox.
+/**
+ * 修复 Edge/IE 10+/Firefox 浏览器中 details 标签的默认显示问题
  */
-
 details {
   display: block;
 }
 
-/*
- * Add the correct display in all browsers.
+/**
+ * 统一所有浏览器中 summary 标签的默认显示方式（列表项样式）
  */
-
 summary {
   display: list-item;
+  cursor: $cursor-pointer; /* 绑定可点击光标变量，提示交互性 */
 }
 
-/* Misc
-   ========================================================================== */
+// ======================================
+// 杂项样式：template/[hidden] 等特殊元素统一
+// ======================================
 
 /**
- * Add the correct display in IE 10+.
+ * 修复 IE 10+ 浏览器中 template 标签的默认显示问题
  */
-
 template {
   display: none;
 }
 
 /**
- * Add the correct display in IE 10.
+ * 修复 IE 10 浏览器中 [hidden] 属性元素的默认显示问题
  */
-
 [hidden] {
-  display: none;
+  display: none !important; /* !important 确保优先级，覆盖自定义样式 */
+}
+
+// ======================================
+// 无障碍聚焦态基础样式（符合 WCAG 标准）
+// ======================================
+:focus-visible {
+  outline: $focus-outline-width $focus-outline-style $focus-outline-color;
+  outline-offset: $focus-outline-offset;
 }

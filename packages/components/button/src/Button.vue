@@ -3,25 +3,34 @@
   import classNames from 'classnames';
   import type { ButtonEmits, ButtonProps } from './button.ts';
 
-  // defineOptions
+  // 组件元信息
   defineOptions({
     name: 'LdButton',
   });
-  // data
+
+  // 组件内部 Data 定义
   const button = ref<HTMLButtonElement | null>();
-  // props
-  const props = defineProps<ButtonProps>();
-  // emits
-  const emits = defineEmits<ButtonEmits>();
-  // computed
+
+  // Props 定义 + 默认值
+  const props = withDefaults(defineProps<ButtonProps>(), {
+    disabled: false,
+    size: 'md', // 默认中等尺寸
+    typeFace: 'primary', // 默认主色调
+  });
+
+  // 计算属性
   const classes = computed(() => {
+    const { size, typeFace, disabled } = props;
+
     return classNames('ld-button', {
-      disabled: props.disabled,
-      [`ld-button-${props.size}`]: props.size,
-      [`ld-button-${props.typeFace}`]: props.typeFace,
+      [`ld-button--${size}`]: size,
+      [`ld-button--${typeFace}`]: typeFace,
+      disabled: disabled,
     });
   });
-  // methods
+
+  // 事件
+  const emits = defineEmits<ButtonEmits>();
   const handleClick = (event: MouseEvent) => {
     if (props.disabled) {
       event.stopPropagation();
