@@ -120,7 +120,7 @@ $btn-themes: (
 }
 
 /** 主题混合宏 */
-@mixin btn-theme($theme: primary, $type: solid) {
+@mixin btn-theme($theme: primary) {
   $theme-props: map.get($btn-themes, $theme); // 取当前主题配置（如 primary）
 
   // 基础样式：根据类型动态赋值
@@ -184,7 +184,7 @@ $btn-themes: (
   transition: map.get($btn-core, transition);
 
   @include btn-size(md);
-  @include btn-theme(primary, solid); // 默认用 primary 主题的 solid 类型
+  @include btn-theme(primary); // 默认用 primary 主题的 solid 类型
 
   & + .ld-button {
     margin-left: map.get($btn-core, spacing-between);
@@ -212,6 +212,15 @@ $btn-themes: (
 @each $size, $props in $btn-sizes {
   .ld-button--#{$size} {
     @include btn-size($size);
+  }
+}
+
+// ======================================
+// 主题
+// ======================================
+@each $theme, $props in $btn-themes {
+  .ld-button--#{$theme} {
+    @include btn-theme($theme);
   }
 }
 
